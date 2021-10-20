@@ -1,0 +1,63 @@
+import pickle
+import argparse
+import ast
+import math
+
+def taxa_mappings():
+  taxaID2Lineage = {}
+
+  for i in open(args.f):
+          tmp = i.strip().upper().split('|')
+          taxaID = tmp[0].strip()
+          taxaName = tmp[1].lower().strip()
+          lineage = tmp[2].lower().strip()+taxaName
+          taxaID2Lineage[taxaID] = lineage
+
+  return taxaID2Lineage
+
+parser = argparse.ArgumentParser()
+parser.add_argument("-d", help="diamond output file")
+parser.add_argument("-m", help="marker gene mapping file")
+parser.add_argument("-f", help="NCBI fullnamelineage.dmp file")
+parser.add_argument("-p", help="pickles file")
+args = parser.parse_args()
+
+taxaID2Lineage = taxa_mappings()
+
+metadata = {}
+
+for i in open(args.m):
+	tmp = i.strip().split('\t')
+	prot,MG,species,genus,family,lineage = tmp[0],tmp[1],tmp[3],tmp[4],tmp[5],tmp[6]
+	metadata[prot] = [MG,species,genus,family,lineage]
+
+with open(args.p,'rb') as f:
+	classifiers = pickle.load(f)
+
+for i in open(args.d):
+	tmp = i.strip().split('\t')
+	read,MG,aln_len,start,end,bitscore = tmp[0],tmp[1],float(tmp[3]),int(tmp[8]),int(tmp[9]),float(tmp[11])
+	region = str(int(20 * math.floor(min(start,end)/20)))
+	MG_region = MG+'_'+region
+	if MG_region not in classifiers: continue
+	mean_bitscore = bitscore/aln_len
+	probs = classifiers[MG_region].predict_proba([[mean_bitscore]])[0]
+	classes = classifiers[MG_region].classes_
+	m = max(probs)
+	next_best = 0
+	rank = []
+	for h,j in enumerate(probs):
+		if j == m:
+			rank.append(classes[h])
+		else:
+			next_best = max(next_best,j)
+	if 'n' not in rank:
+		if m - next_best >= 1./len(classes)/2.:
+			if 'f' in rank:
+				MG,species,genus,family = metadata[MG]
+				print(read,taxaID2Lineage[family],MG,probs,classes,mean_bitscore)
+			elif 'g' in rank:
+				print(read,taxaID2Lineage[genus],MG,probs,classes,mean_bitscore)
+			elif 's' in rank:
+				print(read,taxaID2Lineage[species],MG,probs,classes,mean_bitscore)
+
