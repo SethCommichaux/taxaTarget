@@ -11,14 +11,27 @@ taxaTarget is a tool for the classification of eukaryotes from metagenomic reads
  
 # Installation
 ```
-git clone https://github.com/SethCommichaux/taxaTarget.git \
-mkdir data\
-cd data\
-wget database\
+git clone https://github.com/SethCommichaux/taxaTarget.git
+mkdir data
+cd data
+wget database
 ```
 
 # Running taxaTarget
-Kaiju and Diamond must be in the environment for taxaTarget to run! The input to taxaTarget is an uncompressed fastq file.
+Kaiju and Diamond must be in the environment for taxaTarget to run! The input to taxaTarget is an uncompressed fastq file to Kaiju.
+
 ```
 kaijux -f /path/to/taxaTarget/data/directory/marker_geneDB.fasta.kaiju.fmi -i reads.fastq -z 12 -m 9 | grep "^C" > kaiju
+```
+
+Next, a python script is used to extract the reads that mapped to the marker genes with Kaiju
+
+```
+python extract_kaiju_reads.py -k kaiju -s reads.fastq -o kaiju.fasta
+```
+
+Once the reads are extracted they are input to Diamond to be aligned more sensitively to the marker genes.
+
+```
+diamond blastx --sensitive --min-score 55 --db --query kaiju.fasta --threads 12 --outfmt 6 --out kaiju.fasta.diamond
 ```
