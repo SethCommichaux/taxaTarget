@@ -10,15 +10,15 @@ taxaTarget is a tool for the classification of eukaryotes from metagenomic reads
 * [Diamond](https://github.com/bbuchfink/diamond)
  
 # Installation
-'''
+```
 git clone https://github.com/SethCommichaux/taxaTarget.git \
 mkdir data\
 cd data\
 wget database\
-'''
+```
 
 # Running taxaTarget
 Kaiju and Diamond must be in the environment for taxaTarget to run! The input to taxaTarget is an uncompressed fastq file.
-'''
+```
 kaijux -f /path/to/taxaTarget/data/directory/marker_geneDB.fasta.kaiju.fmi -i reads.fastq -z 12 -m 9 | grep "^C" > kaiju
-'''
+```
