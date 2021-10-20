@@ -10,6 +10,8 @@ import argparse
 
 # Set paths to directories and databases
 #
+diamond="diamond"
+kaiju="kaijux"
 createDB="/lustre/scratch/Seth.Commichaux/Busco_Protist_Pipeline/createDB_scripts/"
 protist_data="/lustre/scratch/Seth.Commichaux/Busco_Protist_Pipeline/data/"
 run_pipeline="/lustre/scratch/Seth.Commichaux/Busco_Protist_Pipeline/run_pipeline_scripts/"
@@ -39,7 +41,7 @@ os.chdir(out)
 
 # Run kaiju to query fastq reads against protein sequence binning databse (binningDB.fasta)
 #
-os.system('kaijux -f %s -i ../%s -z %s -m 9 | grep "^C" > kaiju' % (kaijuDB,reads_fastq,threads))
+os.system('%s -f %s -i ../%s -z %s -m 9 | grep "^C" > kaiju' % (kaijux,kaijuDB,reads_fastq,threads))
 
 
 # Extract reads that aligned to binning database
@@ -49,7 +51,7 @@ os.system('python %s/extract_kaiju_reads.py -k kaiju -s ../%s -o kaiju.fasta' % 
 # Align binned reads, with Diamond, to queryDB
 #
 # --outfmt 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore qseq sseq qlen
-os.system('diamond blastx --top 0 --sensitive --min-score 55 --db %s --query kaiju.fasta --threads %s --outfmt 6 --out kaiju.fasta.diamond' % (queryDB,threads))
+os.system('%s blastx --top 0 --sensitive --min-score 55 --db %s --query kaiju.fasta --threads %s --outfmt 6 --out kaiju.fasta.diamond' % (diamond,queryDB,threads))
 
 # Classify reads
 #
