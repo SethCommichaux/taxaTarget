@@ -12,7 +12,6 @@ import argparse
 #
 diamond="diamond"
 kaiju="kaijux"
-createDB="/lustre/scratch/Seth.Commichaux/Busco_Protist_Pipeline/createDB_scripts/"
 protist_data="/lustre/scratch/Seth.Commichaux/Busco_Protist_Pipeline/data/"
 run_pipeline="/lustre/scratch/Seth.Commichaux/Busco_Protist_Pipeline/run_pipeline_scripts/"
 kaijuDB=protist_data+"/marker_geneDB.fasta.kaiju.fmi"
