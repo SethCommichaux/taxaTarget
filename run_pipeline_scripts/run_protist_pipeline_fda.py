@@ -22,8 +22,8 @@ queryDB=protist_data+"/marker_geneDB.fasta"
 #
 parser = argparse.ArgumentParser()
 parser.add_argument("-f", help="Input fastq file", required = True)
-parser.add_argument("-p", help="Threshold padding to add for thresholds trained with missing data",default = '0.5')
-parser.add_argument("-t", help="Number of threads to use",default = '12')
+parser.add_argument("-p", help="Threshold padding to add for thresholds trained with missing data; default = 0.5",default = '0.5')
+parser.add_argument("-t", help="Number of threads to use; default = 12",default = '12')
 if len(sys.argv)==1:
     parser.print_help(sys.stderr)
     sys.exit(1)
@@ -41,7 +41,7 @@ os.chdir(out)
 
 # Run kaiju to query fastq reads against protein sequence binning databse (binningDB.fasta)
 #
-os.system('%s -f %s -i ../%s -z %s -m 9 | grep "^C" > kaiju' % (kaijux,kaijuDB,reads_fastq,threads))
+os.system('%s -f %s -i ../%s -z %s -m 9 | grep "^C" > kaiju' % (kaiju,kaijuDB,reads_fastq,threads))
 
 
 # Extract reads that aligned to binning database
