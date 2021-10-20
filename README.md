@@ -3,7 +3,7 @@ taxaTarget is a tool for the classification of eukaryotes from metagenomic reads
 
 # Requirements
 * Linux-based operating system
-* Python3 (version 3.6 or higher; was tested on 3.7)
+* Python3 (version 3.6 or higher; was tested on 3.8)
   * Pandas
   * Numpy
 * [Kaiju](https://github.com/bioinformatics-centre/kaiju)
@@ -12,26 +12,20 @@ taxaTarget is a tool for the classification of eukaryotes from metagenomic reads
 # Installation
 ```
 git clone https://github.com/SethCommichaux/taxaTarget.git
+cd taxaTarget
 mkdir data
 cd data
 wget database
 ```
 
 # Running taxaTarget
-Kaiju and Diamond must be in the environment for taxaTarget to run! The input to taxaTarget is an uncompressed fastq file to Kaiju.
+Once installed, you'll find the master script for running taxaTarget in the run_pipeline_scripts directory.
 
+Basic usage:
 ```
-kaijux -f /path/to/taxaTarget/data/directory/marker_geneDB.fasta.kaiju.fmi -i reads.fastq -z 12 -m 9 | grep "^C" > kaiju
-```
-
-Next, a python script is used to extract the reads that mapped to the marker genes with Kaiju
-
-```
-python extract_kaiju_reads.py -k kaiju -s reads.fastq -o kaiju.fasta
+python /path/to/run_pipeline_scripts/run_protist_pipeline_fda.py -f reads.fastq
 ```
 
-Once the reads are extracted they are input to Diamond to be aligned more sensitively to the marker genes.
-
-```
-diamond blastx --sensitive --min-score 55 --db --query kaiju.fasta --threads 12 --outfmt 6 --out kaiju.fasta.diamond
-```
+Optionally, there are two parameters that can be set by the user:
+  -p  The amoung of threshold padding to add for thresholds trained with missing data; by default, 0.5
+  -t  The number of parallel threads to use
