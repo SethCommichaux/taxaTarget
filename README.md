@@ -21,7 +21,7 @@ wget database
 ```
 
 # Running taxaTarget
-Once installed, you'll find the master script for running taxaTarget in the run_pipeline_scripts directory.
+Once installed, you'll find the master script (run_protist_pipeline_fda.py) for running taxaTarget in the run_pipeline_scripts directory. This file needs to be updated with all of the correct paths to the databases, directories, and tools.
 
 Basic usage:
 ```
