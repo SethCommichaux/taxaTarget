@@ -11,13 +11,18 @@ taxaTarget is a tool for the classification of eukaryotes from metagenomic reads
 * [Kaiju](https://github.com/bioinformatics-centre/kaiju)
 * [Diamond](https://github.com/bbuchfink/diamond)
  
-# Installation
+# Installation of taxaTarget and database
+First, to install the taxaTarget scripts,
 ```
 git clone https://github.com/SethCommichaux/taxaTarget.git
 cd taxaTarget
+```
+Next, to download and decompress the taxaTarget database (the database is about 1.5 GB so it might take a few minutes),
+```
 mkdir data
 cd data
-wget database
+wget https://obj.umiacs.umd.edu/taxatarget/archive.tar.gz
+tar xvf archive.tar.gz
 ```
 
 # Running taxaTarget
