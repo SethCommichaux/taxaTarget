@@ -50,7 +50,7 @@ os.system('python %s/extract_kaiju_reads.py -k kaiju -s ../%s -o kaiju.fasta' % 
 # Align binned reads, with Diamond, to queryDB
 #
 # --outfmt 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore qseq sseq qlen
-os.system('%s blastx --top 0 --sensitive --min-score 55 --db %s --query kaiju.fasta --threads %s --outfmt 6 --out kaiju.fasta.diamond' % (diamond,queryDB,threads))
+os.system('%s blastx --sensitive --min-score 55 --db %s --query kaiju.fasta --threads %s --outfmt 6 --out kaiju.fasta.diamond' % (diamond,queryDB,threads))
 
 # Classify reads
 #

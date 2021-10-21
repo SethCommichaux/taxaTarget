@@ -51,7 +51,7 @@ python $run_pipeline/extract_kaiju_reads.py -k kaiju -s ../$reads_fastq -o kaiju
 # Align binned reads, with Diamond, to queryDB
 #
 # --outfmt 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore qseq sseq qlen
-diamond blastx --top 0 --sensitive --min-score 55 --db $queryDB --query kaiju.fasta --threads 12 --outfmt 6 --out kaiju.fasta.diamond
+diamond blastx --sensitive --min-score 55 --db $queryDB --query kaiju.fasta --threads 12 --outfmt 6 --out kaiju.fasta.diamond
 
 
 # Classify reads
