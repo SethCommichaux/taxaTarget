@@ -26,7 +26,8 @@ tar xvf archive.tar.gz
 ```
 
 # Running taxaTarget
-Once installed, you'll find the master script (run_protist_pipeline_fda.py) for running taxaTarget in the run_pipeline_scripts directory. This file needs to be updated with all of the correct paths to the databases, directories, and tools.
+Once installed, the master script (run_protist_pipeline_fda.py) for running taxaTarget in the run_pipeline_scripts directory.\
+The correct paths to the databases, directories, and tools need to be updated within this script.
 
 Basic usage:
 ```
