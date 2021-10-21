@@ -44,7 +44,7 @@ python /path/to/run_pipeline_scripts/run_protist_pipeline_fda.py -f reads.fastq 
 # Understanding the output
 The taxonomic classification results are output in several files to a directory named after the reads fastq with suffix ".taxaTarget":
 
-Here are the files found in the output directory:\
+Here are the files found in the output directory:
 
 1) classified_reads.txt --> the initial classification results for individual reads that get classified as eukaryotic–this allows users to explore the raw results before filtering.
 2) marker_gene_read_counts_per_taxa.txt --> a matrix of read counts per marker gene for all eukaryotic lineages detected in the sample after the results are filtered to build the taxonomic profile.
