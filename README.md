@@ -34,7 +34,7 @@ python /path/to/run_pipeline_scripts/run_protist_pipeline_fda.py -f reads.fastq
 
 Optionally, there are two parameters that can be set by the user:\
   -p  The amoung of threshold padding to add for thresholds trained with missing data; by default, 0.5\
-  -t  The number of parallel threads to use; by default, 12\
+  -t  The number of parallel threads to use; by default, 12
 
 Example:
 ```
@@ -55,5 +55,3 @@ Here are the files found in the output directory:
 7) kaiju.fasta.diamond --> diamond results for the reads in kaiju.fasta aligned to the marker genes
 8) kaiju.fasta.diamond.filtered --> diamond results filtered for best hits based upon mean bit score
 9) read_file_info.txt --> lists number of reads and mean read length for input fastq file
-
-
