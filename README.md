@@ -42,10 +42,18 @@ python /path/to/run_pipeline_scripts/run_protist_pipeline_fda.py -f reads.fastq 
 ```
 
 # Understanding the output
-The taxonomic classification results are output in four files:
-1) classified_reads.txt provides the initial classification results for individual reads that get classified as eukaryotic–this allows users to explore the raw results before filtering.
-2) marker_gene_read_counts_per_taxa.txt is a matrix of read counts per marker gene for all eukaryotic lineages detected in the sample after the results are filtered to build the taxonomic profile.
-3) final_read_classifications.txt provides the final classification results for all reads included in the taxonomic profile.
-4) Taxonomic_report.txt provides the final aggregate taxonomic profile (i.e. read counts per taxonomic lineage and the number of marker genes with mapped reads) of the sample provided.
+The taxonomic classification results are output in several files to a directory named after the reads fastq with suffix ".taxaTarget":
+
+Here are the files found in the output directory:\
+
+1) classified_reads.txt --> the initial classification results for individual reads that get classified as eukaryotic–this allows users to explore the raw results before filtering.
+2) marker_gene_read_counts_per_taxa.txt --> a matrix of read counts per marker gene for all eukaryotic lineages detected in the sample after the results are filtered to build the taxonomic profile.
+3) final_read_classifications.txt --> the final classification results for all reads included in the taxonomic profile.
+4) Taxonomic_report.txt --> the final aggregate taxonomic profile (i.e. read counts per taxonomic lineage and the number of marker genes with mapped reads) of the sample provided.
+5) kaiju --> the kaiju output for reads that mapped to the marker genes
+6) kaiju.fasta --> a fasta file of the reads that mapped to the marker genes with kaiju
+7) kaiju.fasta.diamond --> diamond results for the reads in kaiju.fasta aligned to the marker genes
+8) kaiju.fasta.diamond.filtered --> diamond results filtered for best hits based upon mean bit score
+9) read_file_info.txt --> lists number of reads and mean read length for input fastq file
 
 
