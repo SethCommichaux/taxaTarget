@@ -19,8 +19,6 @@ cd taxaTarget
 ```
 Next, to download and decompress the taxaTarget database (the database is about 1.5 GB so it might take a few minutes),
 ```
-mkdir data
-cd data
 wget https://obj.umiacs.umd.edu/taxatarget/archive.tar.gz
 tar xvf archive.tar.gz
 ```
