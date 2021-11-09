@@ -33,7 +33,7 @@ python /path/to/run_pipeline_scripts/run_protist_pipeline_fda.py -f reads.fastq
 ```
 
 Optionally, there are two parameters that can be set by the user:\
-  -p  The amoung of threshold padding to add for thresholds trained with missing data; by default, 0.5\
+  -p  The amount of threshold padding to add for thresholds trained with missing data; by default, 0.5\
   -t  The number of parallel threads to use; by default, 12
 
 Example:
