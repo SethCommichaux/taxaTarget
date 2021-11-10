@@ -27,7 +27,7 @@ Once installed, the master script (run_protist_pipeline_fda.py) for running taxa
 
 Basic usage:
 ```
-python /path/to/run_pipeline_scripts/run_protist_pipeline_fda.py -f reads.fastq -dir /path/to/taxaTarget/
+python /path/to/taxaTarget/run_pipeline_scripts/run_protist_pipeline_fda.py -f reads.fastq -dir /path/to/taxaTarget/
 ```
 
 Optionally, there are two parameters that can be set by the user:\
