@@ -48,7 +48,7 @@ os.system('mkdir '+out)
 # Run kaiju to query fastq reads against protein sequence binning databse (binningDB.fasta)
 #
 print('Beginning analysis. Mapping reads with Kaiju.')
-os.system('%s -f %s -i ../%s -z %s -m 9 | grep "^C" > %s/kaiju' % (kaiju,kaijuDB,reads_fastq,threads,out))
+os.system('%s -f %s -i %s -z %s -m 9 | grep "^C" > %s/kaiju' % (kaiju,kaijuDB,reads_fastq,threads,out))
 
 
 # Extract reads that aligned to binning database
