@@ -8,8 +8,6 @@ taxaTarget is a tool for the classification of eukaryotes from metagenomic reads
 * Python3 (version 3.6 or higher; was tested on 3.8)
   * Pandas
   * Numpy
-* [Kaiju](https://github.com/bioinformatics-centre/kaiju)
-* [Diamond](https://github.com/bbuchfink/diamond)
  
 # Installation of taxaTarget and database
 First, to install the taxaTarget scripts,
@@ -22,14 +20,14 @@ Next, to download and decompress the taxaTarget database (the database is about 
 wget https://obj.umiacs.umd.edu/taxatarget/archive.tar.gz
 tar xvf archive.tar.gz
 ```
+Kaiju and Diamond are included in the download of the database.
 
 # Running taxaTarget
-Once installed, the master script (run_protist_pipeline_fda.py) for running taxaTarget in the run_pipeline_scripts directory.\
-The correct paths to the databases, directories, and tools need to be updated within this script.
+Once installed, the master script (run_protist_pipeline_fda.py) for running taxaTarget is in the run_pipeline_scripts directory.\
 
 Basic usage:
 ```
-python /path/to/run_pipeline_scripts/run_protist_pipeline_fda.py -f reads.fastq
+python /path/to/run_pipeline_scripts/run_protist_pipeline_fda.py -f reads.fastq -dir /path/to/taxaTarget/
 ```
 
 Optionally, there are two parameters that can be set by the user:\
