@@ -10,7 +10,7 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("-k", help="kaiju output file with no unmapped reads")
 parser.add_argument("-s", help="read file queried w/ kaiju (must have suffix .fastq or .fasta)")
-parser.add_argument("-o", help="name for output fasta file of extracted sequences")
+parser.add_argument("-o", help="path to output directory")
 args = parser.parse_args()
 
 # first record all ids of reads that mapped with Kaiju
@@ -19,7 +19,7 @@ mapped_reads = {i.strip().split('\t')[1]:0 for i in open(args.k)}
 read_count = 0
 av_read_len = 0
 
-with open(args.o,'w') as out:
+with open(args.o+'/kaiju.fasta','w') as out:
 	'''
 	Parse fastq file that was queried with Kaiju and output read sequences
 	in fasta format if they mapped to database.
@@ -45,6 +45,6 @@ with open(args.o,'w') as out:
 				out.write(">"+id+"\n"+s+"\n")
 
 # Output number of reads in fastq and mean read length
-with open('read_file_info.txt','w') as out2:
+with open(args.o+'/read_file_info.txt','w') as out2:
 	out2.write(str(read_count)+'\n'+str(av_read_len/read_count))
 

@@ -54,7 +54,7 @@ os.system('%s -f %s -i %s -z %s -m 9 | grep "^C" > %s/kaiju' % (kaiju,kaijuDB,re
 # Extract reads that aligned to binning database
 #
 print('Extracting reads mapped by Kaiju.')
-os.system('python %s/extract_kaiju_reads.py -k %s/kaiju -s %s -o %s/kaiju.fasta' % (run_pipeline,out,reads_fastq,out))
+os.system('python %s/extract_kaiju_reads.py -k %s/kaiju -s %s -o %s' % (run_pipeline,out,reads_fastq,out))
 
 # Align binned reads, with Diamond, to queryDB
 #
@@ -64,5 +64,5 @@ os.system('%s blastx --sensitive --min-score 55 --db %s --query %s/kaiju.fasta -
 
 # Classify reads
 #
-os.system('python %s/classify_reads_strict.py -d %s/kaiju.fasta.diamond -dir %s/ -p %s' % (run_pipeline,out,protist_data,padding))
+os.system('python %s/classify_reads_strict.py -d %s/kaiju.fasta.diamond -dir %s/ -p %s -o %s' % (run_pipeline,out,protist_data,padding,out))
 

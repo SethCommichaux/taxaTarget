@@ -30,7 +30,7 @@ def filter_diamond_file():
 
 def read_file_info():
 	# function extracts number of reads and mean read length from read_file_info.txt
-	for h,i in enumerate(open('read_file_info.txt')):
+	for h,i in enumerate(open(out_dir+'/read_file_info.txt')):
 		if h == 0: number_reads = float(i.strip())
 		elif h == 1: read_len = float(i.strip())
 	return number_reads,read_len
@@ -146,12 +146,14 @@ def LCA(lineages):
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-d", help="diamond output file", required = True)
+parser.add_argument("-o", help="Output directory", required = True)
 parser.add_argument("-dir", help="path to data directory of taxaTarget", required = True)
 parser.add_argument("-p", help="padding to add to thresholds missing training data",default=0.5,type=float)
 args = parser.parse_args()
 
 # set threshold padding variables
 padding = args.p
+out_dir = args.o
 
 # filter diamond file for best hit read mappings based on mean bitscore
 filter_diamond_file()
@@ -178,7 +180,7 @@ print('collected relevant metadata for marker genes')
 read_classifications = {}
 genus_species = {}
 
-with open('classified_reads.txt','w') as out:
+with open(out_dir+'/classified_reads.txt','w') as out:
 	for i in open(args.d+'.filtered'):
 		tmp = i.strip().split('\t')
 		read,MG,pident,aln_len,start,end,bitscore = tmp[0],tmp[1],float(tmp[2]),float(tmp[3]),int(tmp[8]),int(tmp[9]),float(tmp[11])
@@ -267,7 +269,7 @@ for i in del_keys:
 df = pd.DataFrame(sample_taxa)
 t = df.transpose()
 
-t.to_csv('marker_gene_read_counts_per_taxa.txt',sep='\t')
+t.to_csv(out_dir+'/marker_gene_read_counts_per_taxa.txt',sep='\t')
 
 print('marker gene counts collected')
 
@@ -324,14 +326,14 @@ for k,v in final_read_classifications.items():
             aggregate_taxa[line][0].update(set(v))
             aggregate_taxa[line][1].update(buscos)
 
-with open('final_read_classifications.txt','w') as out:
+with open(out_dir+'/final_read_classifications.txt','w') as out:
 	for k,v in final_read_classifications.items():
 		for i in v:
 			out.write(i+'\t'+k+'\n')
 
 print('aggregated results. writing out to taxonomic report')
 
-with open('Taxonomic_report.txt','w') as out:
+with open(out_dir+'/Taxonomic_report.txt','w') as out:
         for k,v in sorted(aggregate_taxa.items()):
                 counts,buscos = len(v[0]),len(v[1])
                 out.write(k+'\t'+str(counts)+'\t'+str(buscos)+'\n')
