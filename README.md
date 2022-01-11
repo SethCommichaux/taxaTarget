@@ -19,8 +19,8 @@ cd taxaTarget
 ```
 Next, download and decompress the taxaTarget database (the database is about 1.5 GB so it might take a few minutes).
 ```
-wget https://obj.umiacs.umd.edu/taxatarget/archive.tar.gz
-tar xvf archive.tar.gz
+wget https://obj.umiacs.umd.edu/taxatarget/data.zip
+unzip data.zip
 ```
 Next, index the taxaTarget database for use by Kaiju and Diamond.
 ```
