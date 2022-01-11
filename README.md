@@ -8,19 +8,32 @@ taxaTarget is a tool for the classification of eukaryotes from metagenomic reads
 * Python3 (version 3.6 or higher; was tested on 3.8)
   * Pandas
   * Numpy
+* Kaiju (https://github.com/bioinformatics-centre/kaiju)
+* Diamond (https://github.com/bbuchfink/diamond)
  
 # Installation of taxaTarget and database
-First, to install the taxaTarget scripts,
+First, install the taxaTarget scripts.
 ```
 git clone https://github.com/SethCommichaux/taxaTarget.git
 cd taxaTarget
 ```
-Next, to download and decompress the taxaTarget database (the database is about 1.5 GB so it might take a few minutes),
+Next, download and decompress the taxaTarget database (the database is about 1.5 GB so it might take a few minutes).
 ```
 wget https://obj.umiacs.umd.edu/taxatarget/archive.tar.gz
 tar xvf archive.tar.gz
 ```
-Kaiju and Diamond are included in the download of the database.
+Next, index the taxaTarget database for use by Kaiju and Diamond.
+```
+cd data/
+
+# kaiju
+kaiju-mkbwt -n 8 -o marker_geneDB.fasta.kaiju marker_geneDB.fasta
+kaiju-mkfmi marker_geneDB.fasta.kaiju
+rm marker_geneDB.fasta.kaiju.bwt marker_geneDB.fasta.kaiju.sa
+
+# diamond
+diamond makedb --in marker_geneDB.fasta --db marker_geneDB.fasta --threads 8
+```
 
 # Running taxaTarget
 Once installed, the master script (run_protist_pipeline_fda.py) for running taxaTarget is in the run_pipeline_scripts directory.\
