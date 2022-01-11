@@ -17,7 +17,7 @@ First, install the taxaTarget scripts.
 git clone https://github.com/SethCommichaux/taxaTarget.git
 cd taxaTarget
 ```
-Next, download and decompress the taxaTarget database (the database is about 1.5 GB so it might take a few minutes).
+Next, download and decompress the taxaTarget database (the database is about 3.5 GB so it might take a few minutes).
 ```
 wget https://obj.umiacs.umd.edu/taxatarget/data.zip
 unzip data.zip
