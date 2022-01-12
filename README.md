@@ -44,14 +44,14 @@ unzip data.zip
 cd data/
 
 # kaiju
-kaiju-mkbwt -n 8 -o marker_geneDB.fasta.kaiju marker_geneDB.fasta
-kaiju-mkfmi marker_geneDB.fasta.kaiju
+kaiju/bin/kaiju-mkbwt -n 8 -o marker_geneDB.fasta.kaiju marker_geneDB.fasta
+kaiju/bin/kaiju-mkfmi marker_geneDB.fasta.kaiju
 rm marker_geneDB.fasta.kaiju.bwt marker_geneDB.fasta.kaiju.sa
 
 # diamond
 diamond makedb --in marker_geneDB.fasta --db marker_geneDB.fasta --threads 8
 ```
-4) The full paths to the Kaijux executable (in kaiju/bin/), Diamond executable, and the taxaTarget directory need to be updated in the run_pipeline_scripts/environment.txt file.
+4) The full paths to the Kaijux executable (in kaiju/src/kaijux), Diamond executable, and the taxaTarget directory need to be updated in the run_pipeline_scripts/environment.txt file.
 
 # Running taxaTarget
 Once installed, the master script (run_protist_pipeline_fda.py) for running taxaTarget is in the run_pipeline_scripts directory.
