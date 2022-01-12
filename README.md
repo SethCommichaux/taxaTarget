@@ -22,6 +22,11 @@ To install Diamond (if there are issues installing check the github documentatio
 wget http://github.com/bbuchfink/diamond/releases/download/v2.0.13/diamond-linux64.tar.gz
 tar xzf diamond-linux64.tar.gz
 ```
+In some environments v2.0.13 doesn't work and the author is working to patch in the next release. If this is the case use v2.0.11.
+```
+wget http://github.com/bbuchfink/diamond/releases/download/v2.0.11/diamond-linux64.tar.gz
+tar xzf diamond-linux64.tar.gz
+```
 
 # Installation of taxaTarget and database
 First, install the taxaTarget scripts.
