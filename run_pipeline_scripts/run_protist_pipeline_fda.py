@@ -2,16 +2,29 @@
 # The Python3 must have the Pandas and Numpy packages installed.
 # Also, kaiju and diamond must be in the environment
 
-# Import required libraries
+# check for required libraries in python environment
 #
 import os
 import sys
 import argparse
+import math
+import gzip
+import random
+from collections import Counter
+
+try:
+	import pandas as pd
+except ImportError:
+	sys.exit('Pandas library not detected in Python environment!')
+try:
+	import numpy as np
+except ImportError:
+	sys.exit('Numpy library not detected in Python environment!')
 
 # Read in commandline arguments
 #
 parser = argparse.ArgumentParser()
-parser.add_argument("-r", help="Read file in .fastq or .fastq.gz format. Use with single-end reads or forward reads and -r2 for reverse if paired end", required = True)
+parser.add_argument("-r", help="Read file in .fastq or .fastq.gz format. Use with single-end or forward reads and -r2 for reverse reads if paired end", required = True)
 parser.add_argument("-r2", help="Reverse reads in .fastq or .fastq.gz format")
 parser.add_argument("-e", help="Path to environment.txt", required = True)
 parser.add_argument("-p", help="Padding to add to thresholds trained with missing data. Range from 0 to 1, with 1 filtering results most aggressively. Default = 0.5",default = '0.5')

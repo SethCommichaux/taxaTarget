@@ -1,0 +1,2 @@
+for i in ['os','sys','asdfads']:
+	import i
