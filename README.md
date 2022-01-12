@@ -61,7 +61,7 @@ python run_protist_pipeline_fda.py -r test_data/ERR2886542_1.fastq -r2 test_data
 ```
 
 # Running taxaTarget
-Once installed, the master script (run_protist_pipeline_fda.py) for running taxaTarget is in the run_pipeline_scripts directory.
+The master script (run_protist_pipeline_fda.py) for running taxaTarget is in the run_pipeline_scripts directory.
 
 Basic usage:
 ```
