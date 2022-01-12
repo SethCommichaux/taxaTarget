@@ -6,10 +6,12 @@ number of reads in the query fasta/fastq file and the mean read length.
 '''
 
 import argparse
+import gzip
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-k", help="kaiju output file with no unmapped reads")
-parser.add_argument("-s", help="read file queried w/ kaiju (must have suffix .fastq or .fasta)")
+parser.add_argument("-s", help="single end or forward read file queried w/ kaiju (.fastq or .fastq.gz)")
+parser.add_argument("-s2", help="reverse read file queried w/ kaiju (.fastq or .fastq.gz)")
 parser.add_argument("-o", help="path to output directory")
 args = parser.parse_args()
 

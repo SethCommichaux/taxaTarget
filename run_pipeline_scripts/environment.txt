@@ -1,0 +1,6 @@
+# path to kaiju/bin/kaijux
+kaiju='/lustre/scratch/Seth.Commichaux/Busco_Protist_Pipeline/kaiju/bin/kaijux'
+# path to diamond executable
+diamond='/lustre/scratch/Seth.Commichaux/Busco_Protist_Pipeline/diamond'
+# path to home taxaTarget directory
+taxatarget='/lustre/scratch/Seth.Commichaux/Busco_Protist_Pipeline/'
