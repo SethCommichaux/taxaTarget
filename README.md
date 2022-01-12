@@ -29,17 +29,17 @@ tar xzf diamond-linux64.tar.gz
 ```
 
 # Installation of taxaTarget and database
-First, install the taxaTarget scripts.
+1) install the taxaTarget scripts.
 ```
 git clone https://github.com/SethCommichaux/taxaTarget.git
 cd taxaTarget
 ```
-Next, download and decompress the taxaTarget database (the database is about 3.5 GB so it might take a few minutes).
+2) Download and decompress the taxaTarget database (the database is about 3.5 GB so it might take a few minutes).
 ```
 wget https://obj.umiacs.umd.edu/taxatarget/data.zip
 unzip data.zip
 ```
-Next, index the taxaTarget database for use by Kaiju and Diamond.
+3) Index the taxaTarget database for use by Kaiju and Diamond.
 ```
 cd data/
 
@@ -51,14 +51,14 @@ rm marker_geneDB.fasta.kaiju.bwt marker_geneDB.fasta.kaiju.sa
 # diamond
 diamond makedb --in marker_geneDB.fasta --db marker_geneDB.fasta --threads 8
 ```
-Lastly, the full paths to the Kaijux executable (in kaiju/bin/), Diamond executable, and the taxaTarget directory need to be updated in the run_pipeline_scripts/environment.txt file.
+4) The full paths to the Kaijux executable (in kaiju/bin/), Diamond executable, and the taxaTarget directory need to be updated in the run_pipeline_scripts/environment.txt file.
 
 # Running taxaTarget
 Once installed, the master script (run_protist_pipeline_fda.py) for running taxaTarget is in the run_pipeline_scripts directory.
 
 Basic usage:
 ```
-python /path/to/taxaTarget/run_pipeline_scripts/run_protist_pipeline_fda.py -r reads_1.fastq -r2 reads_2.fastq -e /path/to/environment.txt -o /where/I/want/output -t 8
+python run_protist_pipeline_fda.py -r reads_1.fastq -r2 reads_2.fastq -e environment.txt -o results -t 8
 ```
 
 Full list of parameters:\
@@ -88,5 +88,6 @@ Here are the files found in the output directory:
 # Running taxaTarget on test data
 Once you've installed taxaTarget you can check that everything is working by running it on the test data in run_pipeline_scripts/test_data/. The test data consists of paired end reads sequenced from the genome of Lachancea thermotolerans, which is a budding yeast.
 ```
-python /path/to/taxaTarget/run_pipeline_scripts/run_protist_pipeline_fda.py -r /path/to/taxaTarget/run_pipeline_scripts/test_data/ERR2886542_1.fastq -r2 /path/to/taxaTarget/run_pipeline_scripts/test_data/ERR2886542_2.fastq -e /path/to/taxaTarget/run_pipeline_scripts/environment.txt -t 12 -o test_results
+cd /path/to/taxaTarget/run_pipeline_scripts/
+python run_protist_pipeline_fda.py -r test_data/ERR2886542_1.fastq -r2 test_data/ERR2886542_2.fastq -e environment.txt -t 12 -o test_results
 ```
