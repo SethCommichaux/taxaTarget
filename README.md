@@ -46,7 +46,7 @@ python /path/to/taxaTarget/run_pipeline_scripts/run_protist_pipeline_fda.py -r r
 
 Full list of parameters:\
 -h, --help &nbsp; Show help message\
--r &nbsp; Read file in .fastq or .fastq.gz format. Use with single-end ofr forward reads and -r2 for reverse reads if paired end.\
+-r &nbsp; Read file in .fastq or .fastq.gz format. Use with single-end or forward reads and -r2 for reverse reads if paired end.\
 -r2 &nbsp; Reverse reads in .fastq or .fastq.gz format.\
 -e &nbsp; Path to environment.txt\
 -p &nbsp; The amount of threshold padding to add for thresholds trained with missing data; by default, 0.5\
@@ -67,3 +67,9 @@ Here are the files found in the output directory:
 7) kaiju.fasta.diamond --> diamond results for the reads in kaiju.fasta aligned to the marker genes
 8) kaiju.fasta.diamond.filtered --> diamond results filtered for best hits based upon mean bit score
 9) read_file_info.txt --> lists number of reads and mean read length for input fastq file
+
+# Running taxaTarget on test data
+Once you've installed taxaTarget you can check that everything is working by running it on the test data in run_pipeline_scripts/test_data/. The test data consists of paired end reads sequenced from the genome of Lachancea thermotolerans, which is a budding yeast.
+```
+python /path/to/taxaTarget/run_pipeline_scripts/run_protist_pipeline_fda.py -r /path/to/taxaTarget/run_pipeline_scripts/test_data/ERR2886542_1.fastq -r2 /path/to/taxaTarget/run_pipeline_scripts/test_data/ERR2886542_2.fastq -e /path/to/taxaTarget/run_pipeline_scripts/environment.txt -t 12 -o test_results
+```
