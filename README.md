@@ -10,7 +10,19 @@ taxaTarget is a tool for the classification of eukaryotes from metagenomic reads
   * Numpy
 * Kaiju v1.8.2 (https://github.com/bioinformatics-centre/kaiju)
 * Diamond v2.0.13 (https://github.com/bbuchfink/diamond)
- 
+
+To install Kaiju (if there are issues installing check the github documentation),
+```
+git clone https://github.com/bioinformatics-centre/kaiju.git
+cd kaiju/src
+make
+```
+To install Diamond (if there are issues installing check the github documentation),
+```
+wget http://github.com/bbuchfink/diamond/releases/download/v2.0.13/diamond-linux64.tar.gz
+tar xzf diamond-linux64.tar.gz
+```
+
 # Installation of taxaTarget and database
 First, install the taxaTarget scripts.
 ```
