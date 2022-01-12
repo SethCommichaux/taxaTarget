@@ -53,6 +53,13 @@ diamond makedb --in marker_geneDB.fasta --db marker_geneDB.fasta --threads 8
 ```
 4) The full paths to the Kaijux executable (in kaiju/src/kaijux), Diamond executable, and the taxaTarget directory need to be updated in the run_pipeline_scripts/environment.txt file.
 
+# Running taxaTarget on test data
+Once you've installed taxaTarget you can check that everything is working by running it on the test data in run_pipeline_scripts/test_data/. The test data consists of paired end reads sequenced from the genome of Lachancea thermotolerans, which is a budding yeast.
+```
+cd /path/to/taxaTarget/run_pipeline_scripts/
+python run_protist_pipeline_fda.py -r test_data/ERR2886542_1.fastq -r2 test_data/ERR2886542_2.fastq -e environment.txt -t 12 -o test_results
+```
+
 # Running taxaTarget
 Once installed, the master script (run_protist_pipeline_fda.py) for running taxaTarget is in the run_pipeline_scripts directory.
 
@@ -84,10 +91,3 @@ Here are the files found in the output directory:
 7) kaiju.fasta.diamond --> diamond results for the reads in kaiju.fasta aligned to the marker genes
 8) kaiju.fasta.diamond.filtered --> diamond results filtered for best hits based upon mean bit score
 9) read_file_info.txt --> lists number of reads and mean read length for input fastq file
-
-# Running taxaTarget on test data
-Once you've installed taxaTarget you can check that everything is working by running it on the test data in run_pipeline_scripts/test_data/. The test data consists of paired end reads sequenced from the genome of Lachancea thermotolerans, which is a budding yeast.
-```
-cd /path/to/taxaTarget/run_pipeline_scripts/
-python run_protist_pipeline_fda.py -r test_data/ERR2886542_1.fastq -r2 test_data/ERR2886542_2.fastq -e environment.txt -t 12 -o test_results
-```
