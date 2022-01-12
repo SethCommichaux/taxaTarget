@@ -73,9 +73,9 @@ Full list of parameters:\
 -r &nbsp; Read file in .fastq or .fastq.gz format. Use with single-end or forward reads and -r2 for reverse reads if paired end.\
 -r2 &nbsp; Reverse reads in .fastq or .fastq.gz format.\
 -e &nbsp; Path to environment.txt\
--p &nbsp; The amount of threshold padding to add for thresholds trained with missing data; by default, 0.5\
+-p &nbsp; The amount of threshold padding to add for thresholds trained with missing data, 0.5 by default\
 -o &nbsp; Path for desired output directory. Default uses path to reads with .taxaTarget suffix\
--t &nbsp; The number of parallel threads to use; by default, 12\
+-t &nbsp; The number of parallel threads to use, 12 by default
 
 # Understanding the output
 The taxonomic classification results are output in several files to a directory named after the reads fastq with suffix ".taxaTarget":
