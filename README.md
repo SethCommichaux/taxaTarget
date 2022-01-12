@@ -44,14 +44,14 @@ Basic usage:
 python /path/to/taxaTarget/run_pipeline_scripts/run_protist_pipeline_fda.py -r reads_1.fastq -r2 reads_2.fastq -e /path/to/environment.txt -o /where/I/want/output -t 8
 ```
 
-Optionally, there are two parameters that can be set by the user:\
-  -p  The amount of threshold padding to add for thresholds trained with missing data; by default, 0.5\
-  -t  The number of parallel threads to use; by default, 12 
-
-Example:
-```
-python /path/to/run_pipeline_scripts/run_protist_pipeline_fda.py -f reads.fastq -t 8 -p 0.5
-```
+Full list of parameters:\
+-h, --help  Show help message
+-r  Read file in .fastq or .fastq.gz format. Use with single-end ofr forward reads and -r2 for reverse reads if paired end.
+-r2 Reverse reads in .fastq or .fastq.gz format.
+-e  Path to environment.txt
+-p  The amount of threshold padding to add for thresholds trained with missing data; by default, 0.5\
+-o  Path for desired output directory. Default uses path to reads with .taxaTarget suffix
+-t  The number of parallel threads to use; by default, 12 
 
 # Understanding the output
 The taxonomic classification results are output in several files to a directory named after the reads fastq with suffix ".taxaTarget":
