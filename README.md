@@ -34,14 +34,14 @@ rm marker_geneDB.fasta.kaiju.bwt marker_geneDB.fasta.kaiju.sa
 # diamond
 diamond makedb --in marker_geneDB.fasta --db marker_geneDB.fasta --threads 8
 ```
-Lastly, the full paths to the Kaiju directory, Diamond executable, and the taxaTarget directory need to be updated in the run_pipeline_scripts/environment.txt file.
+Lastly, the full paths to the Kaijux executable (in kaiju/bin/), Diamond executable, and the taxaTarget directory need to be updated in the run_pipeline_scripts/environment.txt file.
 
 # Running taxaTarget
 Once installed, the master script (run_protist_pipeline_fda.py) for running taxaTarget is in the run_pipeline_scripts directory.
 
 Basic usage:
 ```
-python /path/to/taxaTarget/run_pipeline_scripts/run_protist_pipeline_fda.py -f reads.fastq -e /path/to/environment.txt
+python /path/to/taxaTarget/run_pipeline_scripts/run_protist_pipeline_fda.py -r reads_1.fastq -r2 reads_2.fastq -e /path/to/environment.txt -o /where/I/want/output -t 8
 ```
 
 Optionally, there are two parameters that can be set by the user:\
