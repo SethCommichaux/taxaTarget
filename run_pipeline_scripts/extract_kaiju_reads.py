@@ -26,7 +26,7 @@ with open(args.o+'/kaiju.fasta','w') as out:
 	Parse fastq file that was queried with Kaiju and output read sequences
 	in fasta format if they mapped to database.
 	'''
-	if args.s.endswith('fastq'): # parse file as fastq if suffix is .fastq
+	if args.s.endswith('fastq') or args.s.endswith('fq'): # parse file as fastq if suffix is .fastq
 		for h,i in enumerate(open(args.s)):
 			if h%4 == 0:
 				id = i[1:].split(' ')[0].strip()
@@ -36,15 +36,38 @@ with open(args.o+'/kaiju.fasta','w') as out:
 				read_count += 1.0
 				if id in mapped_reads:
 					out.write(">"+id+"\n"+s+"\n")
-	elif args.s.endswith('fasta'): # parse file as fasta if suffix is fasta
-		from Bio import SeqIO
-		for i in SeqIO.parse(args.s,'fasta'):
-			id = str(i.id)
-			s = str(i.seq)
-			read_count += 1
-			av_read_len += len(s)
-			if id in mapped_reads:
-				out.write(">"+id+"\n"+s+"\n")
+		if args.s2 != None:
+			for h,i in enumerate(open(args.s)):
+				if h%4 == 0:
+					id = i[1:].split(' ')[0].strip()
+				elif h%4 == 1:
+					s = i.strip()
+					av_read_len += len(s)
+					read_count += 1.0
+					if id in mapped_reads:
+						out.write(">"+id+"\n"+s+"\n")
+	elif args.s.endswith('fastq.gz') or args.s.endswith('fq.gz'): # parse fastq that is gzipped
+                for h,i in enumerate(gzip.open(args.s)):
+                        if h%4 == 0:
+                                id = i[1:].split(' ')[0].strip()
+                        elif h%4 == 1:
+                                s = i.strip()
+                                av_read_len += len(s)
+                                read_count += 1.0
+                                if id in mapped_reads:
+                                        out.write(">"+id+"\n"+s+"\n")
+                if args.s2 != None:
+                        for h,i in enumerate(gzip.open(args.s)):
+                                if h%4 == 0:
+                                        id = i[1:].split(' ')[0].strip()
+                                elif h%4 == 1:
+                                        s = i.strip()
+                                        av_read_len += len(s)
+                                        read_count += 1.0
+                                        if id in mapped_reads:
+                                                out.write(">"+id+"\n"+s+"\n")
+	else:
+		sys.exit('No fastq file was recognized!')
 
 # Output number of reads in fastq and mean read length
 with open(args.o+'/read_file_info.txt','w') as out2:

@@ -1,0 +1,14 @@
+cellular organisms;	613	175
+cellular organisms;eukaryota;	613	175
+cellular organisms;eukaryota;opisthokonta;	613	175
+cellular organisms;eukaryota;opisthokonta;fungi;	613	175
+cellular organisms;eukaryota;opisthokonta;fungi;dikarya;	613	175
+cellular organisms;eukaryota;opisthokonta;fungi;dikarya;ascomycota;	613	175
+cellular organisms;eukaryota;opisthokonta;fungi;dikarya;ascomycota;saccharomyceta;	613	175
+cellular organisms;eukaryota;opisthokonta;fungi;dikarya;ascomycota;saccharomyceta;saccharomycotina;	613	175
+cellular organisms;eukaryota;opisthokonta;fungi;dikarya;ascomycota;saccharomyceta;saccharomycotina;saccharomycetes;	613	175
+cellular organisms;eukaryota;opisthokonta;fungi;dikarya;ascomycota;saccharomyceta;saccharomycotina;saccharomycetes;saccharomycetales;	613	175
+cellular organisms;eukaryota;opisthokonta;fungi;dikarya;ascomycota;saccharomyceta;saccharomycotina;saccharomycetes;saccharomycetales;saccharomycetaceae;	613	175
+cellular organisms;eukaryota;opisthokonta;fungi;dikarya;ascomycota;saccharomyceta;saccharomycotina;saccharomycetes;saccharomycetales;saccharomycetaceae;lachancea;	589	166
+cellular organisms;eukaryota;opisthokonta;fungi;dikarya;ascomycota;saccharomyceta;saccharomycotina;saccharomycetes;saccharomycetales;saccharomycetaceae;lachancea;lachancea quebecensis;	7	6
+cellular organisms;eukaryota;opisthokonta;fungi;dikarya;ascomycota;saccharomyceta;saccharomycotina;saccharomycetes;saccharomycetales;saccharomycetaceae;lachancea;lachancea thermotolerans;	373	125
