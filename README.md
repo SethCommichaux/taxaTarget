@@ -45,7 +45,7 @@ python /path/to/taxaTarget/run_pipeline_scripts/run_protist_pipeline_fda.py -r r
 ```
 
 Full list of parameters:\
--h, --help  Show help message\
+-h, --help &nbsp; Show help message\
 -r  Read file in .fastq or .fastq.gz format. Use with single-end ofr forward reads and -r2 for reverse reads if paired end.\
 -r2  Reverse reads in .fastq or .fastq.gz format.\
 -e  Path to environment.txt\
