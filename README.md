@@ -75,7 +75,7 @@ Full list of parameters:\
 -e &nbsp; Path to environment.txt\
 -p &nbsp; The amount of threshold padding to add for thresholds trained with missing data, 0.5 by default\
 -o &nbsp; Path for desired output directory. Default uses path to reads with .taxaTarget suffix\
--t &nbsp; The number of parallel threads to use, 12 by default
+-t &nbsp; The number of parallel threads to use, 12 by default\
 --tmp &nbsp; If set, will delete tmp and intermediate files.
 
 # Understanding the output
