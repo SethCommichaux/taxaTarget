@@ -76,6 +76,7 @@ Full list of parameters:\
 -p &nbsp; The amount of threshold padding to add for thresholds trained with missing data, 0.5 by default\
 -o &nbsp; Path for desired output directory. Default uses path to reads with .taxaTarget suffix\
 -t &nbsp; The number of parallel threads to use, 12 by default
+--tmp &nbsp; If set, will delete tmp and intermediate files.
 
 # Understanding the output
 The taxonomic classification results are output in several files to a directory named after the reads fastq with suffix ".taxaTarget":
