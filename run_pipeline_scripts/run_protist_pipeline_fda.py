@@ -82,6 +82,8 @@ if reverse_reads == None:
 else:
 	os.system('%s -f %s -i %s -j %s -z %s -m 9 | grep "^C" > %s/kaiju' % (kaiju,kaijuDB,reads_fastq,reverse_reads,threads,out))
 
+if os.path.getsize(out+'/kaiju') == 0: sys.exit("No reads mapped to the marker genes with Kaiju. Analysis ended!")
+
 # Extract reads that aligned to binning database
 #
 print('Extracting reads mapped by Kaiju.')
@@ -95,6 +97,8 @@ else:
 # --outfmt 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore qseq sseq qlen
 print('Aligning reads with Diamond.')
 os.system('%s blastx --sensitive --min-score 55 --db %s --query %s/kaiju.fasta --threads %s --outfmt 6 --out %s/kaiju.fasta.diamond' % (diamond,queryDB,out,threads,out))
+
+if os.path.getsize(out+'/kaiju.fasta.diamond') == 0: sys.exit("No reads mapped to the marker genes with Diamond. Analysis ended!")
 
 # Classify reads
 #
