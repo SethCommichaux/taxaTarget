@@ -20,6 +20,10 @@ try:
 	import numpy as np
 except ImportError:
 	sys.exit('Numpy library not detected in Python environment!')
+try:
+	from Bio import SeqIO
+except ImportError:
+	sys.exit('BioPython library not detected in Python environment!')
 
 # Read in commandline arguments
 #
@@ -30,6 +34,7 @@ parser.add_argument("-e", help="Path to environment.txt", required = True)
 parser.add_argument("-p", help="Padding to add to thresholds trained with missing data. Range from 0 to 1, with 1 filtering results most aggressively. Default = 0.5",default = '0.5')
 parser.add_argument("-o", help="Path for desired output directory. Default uses path to reads with .taxaTarget suffix")
 parser.add_argument("-t", help="Number of threads to use; default = 12",default = '12')
+parser.add_argument('--tmp', help="If set, will delete tmp and intermediate files.", action="store_true", default=False)
 
 if len(sys.argv)==1:
     parser.print_help(sys.stderr)
@@ -94,3 +99,6 @@ os.system('%s blastx --sensitive --min-score 55 --db %s --query %s/kaiju.fasta -
 # Classify reads
 #
 os.system('python %s/classify_reads_strict.py -d %s/kaiju.fasta.diamond -dir %s/ -p %s -o %s' % (run_pipeline,out,protist_data,padding,out))
+
+if args.tmp == True:
+	os.system('rm %s/kaiju %s/kaiju.fasta %s/kaiju.fasta.diamond %s/kaiju.fasta.diamond.filtered' % (out,out,out,out))
