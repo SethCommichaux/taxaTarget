@@ -52,7 +52,7 @@ rm marker_geneDB.fasta.kaiju.bwt marker_geneDB.fasta.kaiju.sa
 # diamond
 /path/to/diamond makedb --in marker_geneDB.fasta --db marker_geneDB.fasta --threads 8
 ```
-4) The full paths to the Kaijux executable (in kaiju/src/kaijux), Diamond executable, and the taxaTarget directory need to be updated in the taxaTarget/run_pipeline_scripts/environment.txt file.
+4) The full paths to the Kaijux executable (in kaiju/bin/kaijux), Diamond executable, and the taxaTarget directory need to be updated in the taxaTarget/run_pipeline_scripts/environment.txt file.
 
 # Running taxaTarget on test data
 Once you've installed taxaTarget you can check that everything is working by running it on the test data in run_pipeline_scripts/test_data/. The test data consists of paired end reads sequenced from the genome of Lachancea thermotolerans, which is a budding yeast.
