@@ -20,7 +20,7 @@ make
 ```
 To install Diamond,
 ```
-wget http://github.com/bbuchfink/diamond/releases/download/v2.0.13/diamond-linux64.tar.gz
+wget http://github.com/bbuchfink/diamond/releases/download/v2.0.14/diamond-linux64.tar.gz
 tar xzf diamond-linux64.tar.gz
 ```
 In some environments Diamond v2.0.13 doesn't work and the author is working to patch in the next release. If this is the case use v2.0.11. If there are still issues check the Diamond documentation.
