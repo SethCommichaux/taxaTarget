@@ -92,6 +92,8 @@ if reverse_reads == None:
 else:
 	os.system('python %s/extract_kaiju_reads.py -k %s/kaiju -s %s -s2 %s -o %s' % (run_pipeline,out,reads_fastq,reverse_reads,out))
 
+if os.path.getsize(out+'/kaiju.fasta') == 0: sys.exit("No reads mapped to the marker genes with Kaiju. Analysis ended!")
+
 # Align binned reads, with Diamond, to queryDB
 #
 # --outfmt 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore qseq sseq qlen
