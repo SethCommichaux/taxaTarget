@@ -17,7 +17,7 @@ parser.add_argument("-o", help="path to output directory")
 args = parser.parse_args()
 
 # first record all ids of reads that mapped with Kaiju
-mapped_reads = {i.strip().split('\t')[1]:0 for i in open(args.k)}
+mapped_reads = {i.strip().split('\t')[1].split('#')[0]:0 for i in open(args.k)}
 
 read_count = 0
 av_read_len = 0
@@ -30,7 +30,7 @@ with open(args.o+'/kaiju.fasta','w') as out:
 	if args.s.endswith('fastq') or args.s.endswith('fq'): # parse file as uncompressed fastq
 		for h,i in enumerate(open(args.s)):
 			if h%4 == 0:
-				id = i[1:].split(' ')[0].strip()
+				id = i[1:].split(' ')[0].strip().split('#')[0]
 			elif h%4 == 1:
 				s = i.strip()
 				av_read_len += len(s)
@@ -40,7 +40,7 @@ with open(args.o+'/kaiju.fasta','w') as out:
 		if args.s2 != None:
 			for h,i in enumerate(open(args.s2)):
 				if h%4 == 0:
-					id = i[1:].split(' ')[0].strip()
+					id = i[1:].split(' ')[0].strip().split('#')[0]
 				elif h%4 == 1:
 					s = i.strip()
 					av_read_len += len(s)
@@ -51,7 +51,7 @@ with open(args.o+'/kaiju.fasta','w') as out:
 		with gzip.open(args.s, "rt") as handle:
 			for h,i in enumerate(handle):
 				if h%4 == 0:
-					id = i[1:].split(' ')[0].strip()
+					id = i[1:].split(' ')[0].strip().split('#')[0]
 				elif h%4 == 1:
 					s = i.strip()
 					av_read_len += len(s)
@@ -62,7 +62,7 @@ with open(args.o+'/kaiju.fasta','w') as out:
 			with gzip.open(args.s2, "rt") as handle:
 				for h,i in enumerate(handle):
 					if h%4 == 0:
-						id = i[1:].split(' ')[0].strip()
+						id = i[1:].split(' ')[0].strip().split('#')[0]
 					elif h%4 == 1:
 						s = i.strip()
 						av_read_len += len(s)
@@ -71,14 +71,14 @@ with open(args.o+'/kaiju.fasta','w') as out:
 							out.write(">"+id+"\n"+s+"\n")
 	elif args.s.endswith('.fasta') or args.s.endswith('.fa'): # parse file as uncompressed fasta
 		for i in SeqIO.parse(args.s,'fasta'):
-			id,s = str(i.id),str(i.seq)
+			id,s = str(i.id).split('#')[0],str(i.seq)
 			av_read_len += len(s)
 			read_count += 1.0
 			if id in mapped_reads:
 				out.write(">"+id+"\n"+s+"\n")
 		if args.s2 != None:
 			for i in SeqIO.parse(args.s2,'fasta'):
-				id,s = str(i.id),str(i.seq)
+				id,s = str(i.id).split('#')[0],str(i.seq)
 				av_read_len += len(s)
 				read_count += 1.0
 				if id in mapped_reads:
@@ -86,7 +86,7 @@ with open(args.o+'/kaiju.fasta','w') as out:
 	elif args.s.endswith('.fasta.gz') or args.s.endswith('.fa.gz'): # parse file as gzip compressed fasta
 		with gzip.open(args.s, "rt") as handle:
 			for i in SeqIO.parse(handle,'fasta'):
-				id,s = str(i.id),str(i.seq)
+				id,s = str(i.id).split('#')[0],str(i.seq)
 				av_read_len += len(s)
 				read_count += 1.0
 				if id in mapped_reads:
@@ -94,7 +94,7 @@ with open(args.o+'/kaiju.fasta','w') as out:
 		if args.s2 != None:
 			with gzip.open(args.s2, "rt") as handle:
 				for i in SeqIO.parse(handle,'fasta'):
-					id,s = str(i.id),str(i.seq)
+					id,s = str(i.id).split('#')[0],str(i.seq)
 					av_read_len += len(s)
 					read_count += 1.0
 					if id in mapped_reads:
