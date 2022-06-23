@@ -340,7 +340,15 @@ with open(out_dir+'/final_read_classifications.txt','w') as out:
 
 print('aggregated results. writing out to taxonomic report')
 
+names = {i.strip().split('|')[1].strip().lower():i.strip().split('|')[0].strip() for i in open(args.dir+'fullnamelineage.dmp')}
+nodes = {i.strip().split('|')[0].strip():i.strip().split('|')[2].strip() for i in open(args.dir+'nodes.dmp')}
+
 with open(out_dir+'/Taxonomic_report.txt','w') as out:
+        out.write('Lineage\tTaxa\tRank\tRead_count\tAbundance\tBusco_count\n')
         for k,v in sorted(aggregate_taxa.items()):
-                counts,buscos = len(v[0]),len(v[1])
-                out.write(k+'\t'+str(counts)+'\t'+str(abundances[k])+'\t'+str(buscos)+'\n')
+                counts,buscos = str(len(v[0])),str(len(v[1]))
+                abundance = str(abundances[k])
+                taxa = k.split(';')[-2]
+                taxaID = names[taxa]
+                rank = nodes[taxaID]
+                out.write('%s\t%s\t%s\t%s\t%s\t%s\n' % (k,taxa,rank,counts,abundance,buscos))
