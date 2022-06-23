@@ -79,17 +79,19 @@ def collect_classifier_metadata(taxaID2Lineage):
 	# function collects metadata associated with each classifier
 	# example metadata includes: UniProt ID, BUSCO marker gene ID, protein length, taxonomic IDs for
 	# family, genus and species, as well as the full taxonomic lineage
-	metadata,mg_per_species,prot2len = {},{},{}
+	metadata,mg_per_species = {},{}
 	
 	for i in open(args.dir+'/marker_gene_metadata.txt'):
 		tmp = i.strip().split('\t')
 		prot,MG,prot_len,species,genus,family,lineage = tmp[0],tmp[1],float(tmp[2]),tmp[3],tmp[4],tmp[5],tmp[6]
 		metadata[prot] = [MG,species,genus,family]
 		species_lineage = taxaID2Lineage[species]
-		prot2len[prot] = prot_len
 		if species_lineage not in mg_per_species: mg_per_species[species_lineage] = set([MG])
 		else: mg_per_species[species_lineage].update([MG])
-	return metadata,mg_per_species,prot2len
+	
+	mgLen_phylogroups = {i.strip().split('\t')[0]:int(i.strip().split('\t')[1]) for i in open(args.dir+'/phylogroup_total_mgLen.txt')}
+	
+	return metadata,mg_per_species,mgLen_phylogroups
 
 def pad_thresholds(nmax,smin,smax,gmin,fmin):
 	smax += 0.1
@@ -144,6 +146,9 @@ def LCA(lineages):
     new_lineage = [i[0].strip() for i in zip(*lineages) if len(set(i)) == 1 if '' not in i]
     return new_lineage
 
+def relative_abundance(mgLen,counts,number_reads,read_len):
+	return (counts*read_len)/(number_reads*mgLen)
+
 parser = argparse.ArgumentParser()
 parser.add_argument("-d", help="diamond output file", required = True)
 parser.add_argument("-o", help="Output directory", required = True)
@@ -174,7 +179,7 @@ print('diamond file first pass')
 classifiers = collect_thresholds(classifiers)
 print('collected relevant classifiers')
 
-metadata,MG_per_species,prot2len = collect_classifier_metadata(taxaID2Lineage)
+metadata,MG_per_species,mgLen_phylogroups = collect_classifier_metadata(taxaID2Lineage)
 print('collected relevant metadata for marker genes')
 
 read_classifications = {}
@@ -192,11 +197,10 @@ with open(out_dir+'/classified_reads.txt','w') as out:
 			if (multimapped[read] > 1) and (pident == 100):
 				lineage = taxaID2Lineage[species]
 				if read not in read_classifications:
-					read_classifications[read] = [[lineage],set([busco]),mean_bitscore,[prot2len[MG]]]
+					read_classifications[read] = [[lineage],set([busco]),mean_bitscore]
 				else:
 					read_classifications[read][0].append(lineage)
 					read_classifications[read][1].update([busco])
-					read_classifications[read][3].append(prot2len[MG])
 				out.write(read+'\tspecies\t'+busco+'\t'+MG_region+'\t'+str(mean_bitscore)+'\t'+lineage+'\n')
 			elif classifiers[MG_region] == {}: continue # check reads map to marker gene regions with classifiers
 			else:
@@ -206,18 +210,17 @@ with open(out_dir+'/classified_reads.txt','w') as out:
 				if lineage != '':
 					out.write(read+'\t'+rank+'\t'+busco+'\t'+MG_region+'\t'+str(mean_bitscore)+'\t'+lineage+'\n')
 					if read not in read_classifications:
-						read_classifications[read] = [[lineage],set([busco]),mean_bitscore,[prot2len[MG]]]
+						read_classifications[read] = [[lineage],set([busco]),mean_bitscore]
 					else:
 						read_classifications[read][0].append(lineage)
 						read_classifications[read][1].update([busco])
-						read_classifications[read][3].append(prot2len[MG])
 
 mg_names = [i.strip() for i in open(args.dir+'/255_MGs.txt')] + ['Total_reads']
 sample_taxa = {'names':mg_names}
 final_read_classifications = {}
 
 for read,v in read_classifications.items():
-    lineages,buscos,mean_bitscore,average_prot_len = v[0],v[1],v[2],sum(v[3])/float(len(v[3]))
+    lineages,buscos,mean_bitscore = v[0],v[1],v[2]
     lca = LCA(lineages)
     #line = ';'.join(lca)
     line = ''
@@ -313,13 +316,17 @@ for k,v in genus_species.items():
 	except: continue
 
 aggregate_taxa = {}
+abundances = {}
 
 for k,v in final_read_classifications.items():
     line = ''
     if k not in sample_taxa: continue
     buscos = {mg_names[h] for h,i in enumerate(sample_taxa[k][:-1]) if i > 0}
+    relAbund = relative_abundance(mgLen_phylogroups[k+';'],len(set(v)),number_reads,read_len)
     for j in k.split(';'):
         line += j+';'
+        if line not in abundances: abundances[line] = relAbund
+        else: abundances[line] += relAbund
         if line not in aggregate_taxa:
             aggregate_taxa[line] = [set(v),buscos] # [[reads],[buscos]]	
         else:
@@ -336,4 +343,4 @@ print('aggregated results. writing out to taxonomic report')
 with open(out_dir+'/Taxonomic_report.txt','w') as out:
         for k,v in sorted(aggregate_taxa.items()):
                 counts,buscos = len(v[0]),len(v[1])
-                out.write(k+'\t'+str(counts)+'\t'+str(buscos)+'\n')
+                out.write(k+'\t'+str(counts)+'\t'+str(abundances[k])+'\t'+str(buscos)+'\n')
